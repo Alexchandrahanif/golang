@@ -123,7 +123,8 @@ func main() {
 		// Pointer => penujuk data pertama pada array
 		// Length => panjang dari slice
 		// Capacity => kapasitas slice, length tidak boleh lebih dari kapasitas
-		// 
+		// Slice bisa di ubah, append, dan copy
+
 
 
 
@@ -133,6 +134,43 @@ func main() {
 
 	
 	// Map
+		// Map => sama aja dengan Object Pada JavaScript
+		// Memiliki Key dan Value
+
+	contohMapString := map[string]string{
+		"Barcelona" : "Messi",
+		"Real Madrid" : "Ronaldo",
+		"Manchester United" : "Rooney",
+		"Manchester City" : "Dzeko",
+	} 
+	contohMapInteger := map[string]int{
+		"Barcelona" : 10,
+		"Real Madrid" : 20,
+	} 
+
+	// mendapatkan banyak data didalam map
+	fmt.Println(len(contohMapString))
+
+	// mengambil data didalam map, dengan key
+	fmt.Println(contohMapString["Barcelona"])
+	
+	// mengubah data didalam map, dengan key
+	contohMapString["Barcelona"] = "David Villa"
+
+	// menghapus data didalam map dengan key
+	delete(contohMapString, "Barcelona")
+
+	// mau buat map baru
+	mapBaru := make(map[string]string)
+
+	// mengisi map dengan data baru 
+	mapBaru["datasatu"] = "dataSatu"
+	
+	fmt.Println(mapBaru)
+
+	fmt.Println(contohMapString, contohMapInteger)
+
+
 
 	// IF
 
