@@ -173,12 +173,78 @@ func main() {
 
 
 	// IF
+		// sama aja sih dengan js, jadi ezpz
+	if (10 < 1) {
+		fmt.Println("kocak")
+	} else {
+		fmt.Println("Kocag")
+	}
+
+	if(10 > 20){
+		fmt.Println("Mantap")
+	} else if(10 > 5){
+		fmt.Println("Mantap Juga")
+	} else {
+		fmt.Println("KOCAKKS")
+	}
 
 	// Switch Expression
+		// sama juga dengan switch di JS ejeed
+	day := 4
 
+  switch day {
+		case 1:
+			fmt.Println("Monday")
+		case 2:
+			fmt.Println("Tuesday")
+		case 3:
+			fmt.Println("Wednesday")
+		case 4:
+			fmt.Println("Thursday")
+		case 5:
+			fmt.Println("Friday")
+		case 6:
+			fmt.Println("Saturday")
+		case 7:
+			fmt.Println("Sunday")
+  }
+
+	// kalau multicase nya gini
+
+  switch day {
+   	case 1,3,5:
+    	fmt.Println("Odd weekday")
+   	case 2,4:
+     	fmt.Println("Even weekday")
+   	case 6,7:
+    	fmt.Println("Weekend")
+   	default:
+    	fmt.Println("Invalid day of day number")
+  }
 	// For Loop
+		// sama juga dengan JS gak terlalu beda
+	for i:= 1; i<10; i++{
+		fmt.Println(i)
+	}
+
+
 
 	// Break & Continues
+		// sama juga dengan js
+
+	for i:=0; i < 5; i++ {
+		if i == 3 {
+			continue
+		}
+	 fmt.Println(i, "continue")
+	}	
+
+	for i:=0; i < 5; i++ {
+		if i == 3 {
+			break
+		}
+	 fmt.Println(i, "break")
+	}	
 
 	// Function
 		// Function Parameter
