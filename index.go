@@ -2,6 +2,68 @@ package main
 
 import "fmt"
 
+// function biasa
+func biasa(){
+	fmt.Println("ini adalah function biasa aja, tanpa return")
+}
+
+// function dengan paramter
+func denganParameter (angka1 int, angka2 int){
+	fmt.Println(angka1 + angka2)
+}
+
+// function dengan return biasa tanpa variabel
+func returnBiasa(umur int, nama string, hobi string, pekerjaan string) string {
+	return fmt.Sprintf("nama saya adalah %s, umur saya %d tahun %s %s", nama, umur,  pekerjaan, hobi)
+}		
+
+// fuction dengan return variabel (gila sih ini, mantap)
+func returnVariabel(angka int)(hasil string, membuat string){
+	membuat = "oke"
+	hasil = fmt.Sprintf("Hallo Umur saya %d tahun", angka)
+	return 
+}
+
+// function variadic (...int, ...string)
+	// disebut juga variabel argument, syaratnya harus paling ujung, misal ada 3 paramter maka posisi nya harus paling kanan
+	// tidak boleh ada 2 paramter argument didalam 1 fucnction
+	// dengan variadic, membuat paramter nya tidak menjadi wajib
+
+	func variadic(number ...int)int{
+		total := 0
+		for _,number := range number{
+			total += number
+		}
+		return total
+	}
+
+// function as paramter
+	// dimana function akan menjadi sebuah parameter, gila gak tuh
+
+func filterChatBocilToxic(kata string, filter func(string) string) string{ // artinya ada 2 parameter dimana peram pertama string, kedua ada fuct yg menerima 1 parameter string, dan return string juga
+	hasilFilter := filter(kata)
+	return hasilFilter	
+}
+
+func filterChatToxic(kata string)string{
+	if (kata == "anjing" || kata == "Babi" || kata == "Anak Yateam" || kata == "Anak Babi"){
+		return "..."
+	} else {
+		return kata
+	}
+}
+
+
+
+	// kode di atas sama aja dengan for of di js
+	// for (let number of numbers) {
+  //   total += number;
+	// }
+
+
+// 
+
+
 func main() {
 
 	
@@ -247,13 +309,51 @@ func main() {
 	}	
 
 	// Function
+		// model biasa
+		biasa()
+		
 		// Function Parameter
-		// Function Return Value
-		// Returning Multiple Values
-		// Named Multiple Values
-		// Variadic Function
+		denganParameter(10, 20)
+
+		// function dengan return biasa tanpa variabel
+		hasilreturnbiasa := returnBiasa(20, "alex", "Ngoding", "Tukang Ketik" )
+		fmt.Println(hasilreturnbiasa)
+
+		// fuction dengan return variabel (gila sih ini, mantap)
+		hasil, membuat := returnVariabel(10)
+		fmt.Println(hasil, membuat)
+
+		// Variadic Function (menambahkan parameter lebih dari 1)
+
+		hasilVariadicBiasa := variadic(1,2,3,4,5)
+		fmt.Println(hasilVariadicBiasa)
+
+		hasilVariadicKosongan := variadic()
+		fmt.Println(hasilVariadicKosongan)
+
+
+
+		// kalau kita mengisi parameter dengan slice, maka ada tambahan 3 titik (...) didepan
+		varibelSlice := []int{2,2,2,2}
+		hasilVariadicDenganSlice := variadic(varibelSlice...)
+		fmt.Println(hasilVariadicDenganSlice)
+
+
 		// Function Value
+			// maksudnya disini kita menyimpan function ke dalam sebuah vaiabel dahulu
+			// syaratanya mesti mereturn sesuatu, bukan yg fmt.PrintLn aja
+
+		contohVariabelValue := returnBiasa
+
+		hasilVariabelValue := contohVariabelValue(1, "ini", "merupakan function value", "gokil banger")
+		fmt.Println(hasilVariabelValue)
+
 		// Function as Parameter
+			// disini lebih gila lagi, kita bisa membuat function sebagai parameter, gokil banget
+		
+		hasilDariFunctionFilterToxic := filterChatBocilToxic("Babi", filterChatToxic)
+		fmt.Println(hasilDariFunctionFilterToxic)
+
 		// Anonymous Function
 		// Recursive Function
 
