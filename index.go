@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // function biasa
 func biasa(){
@@ -61,7 +64,74 @@ func filterChatToxic(kata string)string{
 	// }
 
 
-// 
+// Defer, Panic dan Recover
+func contohDefer1(){
+	fmt.Println("Ini Defer 1")
+
+
+	// disini kita menyimpan recover yg berisi data panic, tetapi disini tidaklah wajib untuk menyimpannyha
+	// cukup dengan " recover() " saja sebenarnya sudah cukup, tanpa harus di tampilkan
+	message := recover()
+ 
+	fmt.Println(message) 
+}
+
+func contohDefer2(){
+	fmt.Println("Ini Defer 2")
+}
+
+func pengunaanDefer(hasil bool){
+	defer contohDefer1()
+	defer contohDefer2() // ketika ada panic, maka ini dahulu dijalankan dari pada defer 1
+
+ 	fmt.Println("Proses Function dijalankan")
+
+	if(hasil){
+		panic("APLIKASI EROR")
+	}
+
+	fmt.Println("Lanjutan Aplikasi") // ini tidak akan dijalankan ketika panic
+	// dan akan melanjutkan proses di dalam function nya ketika ada recover didalan function defer
+	
+}
+
+// Struct
+type Customer struct{
+	nama, alamat 	string
+	umur 					int
+	// bekerja				bool // ketika ini ditambahkan, maka data1 akan error, dan ini kekurangan nya
+
+}
+	// cek function methon nya dibaris 103
+func (customer Customer) sayHai(){
+	fmt.Println("Hallo nama saya " + customer.nama)
+}
+
+
+// Interface
+type Pelanggan interface{}
+
+
+
+// contoh interface kosong
+func InterfaceKosong (i int) interface{}{
+	if i == 1 {
+		return "Ini Angka 1"
+		} else if i == 2 {
+			return "Ini Angka 1"
+		} else {
+			return "Ini Bukan Angka 1 dan 2"
+	}
+}
+
+// contoh interface error
+func Pembagi(nilai int, pembagi int) (int, error) { // pada contoh disini func mereturn int, dan error
+	if(pembagi == 0) {
+		return 0,errors.New("Pembagi Tidak Boleh 0") 	// itu kenapa disini pertama return 0, dan pesan error,
+	} else {																				// pesan error nya dibuat dengan .New("pesan errro")
+		return nilai/pembagi, nil	// dan disini, karena tidak eror, maka dikembalikam nil diparamter return ke 2
+	}
+}
 
 
 func main() {
@@ -354,10 +424,170 @@ func main() {
 		hasilDariFunctionFilterToxic := filterChatBocilToxic("Babi", filterChatToxic)
 		fmt.Println(hasilDariFunctionFilterToxic)
 
-		// Anonymous Function
-		// Recursive Function
+	// Anonymous Function
+		// sama aja kek js
+		
+		
+	// Recursive Function
+		// menjalankan function didalam function sendiri
+		
 
-	// Closure (Part 30)
+	// Closure
+		// mengubah variabel diluar function, didalam function, sama aja kek js
+		
+	// Defer Panic Recover
+		// Defer => menjalan kan function A, ketika function B selesai, mau error atau engga tetap muncul
+		// Panic => untuk mentriger ketika ada eror didalam funtion A, setelah function B dijalankan
+		// Recover => untuk menangkap data panic, dengan recover => function nya tetap berjalan sampai bawah walaupun ada panic
+	
+
+	pengunaanDefer(true)
+
+	fmt.Println("Lanjutan Panic, ketika ada recover")
+
+
+	//! Struct
+		// Template untuk menggabungkan lebih dari 1 tipe data
+		// Merepresentasi data
+		// Kumpulan dari Field
+
+		// type Customer struct{
+		// 	nama, alamat 	string
+		// 	umur 					int
+		// 	bekerja				bool // ketika ini ditambahkan, maka data1 akan error, dan ini kekurangan nya
+		
+		// }
+
+
+		
+	// bisa cara ini 
+	var data Customer
+	data.nama = "Alex Chandra Hanif"
+	data.alamat = "Jakarta Pusat"
+	data.umur = 24 
+	
+	fmt.Println(data) // semua data
+	fmt.Println(data.nama) // data nama saja
+
+
+	// atau ini
+	data1 := Customer{"Alex", "Senen", 10}
+	fmt.Println(data1)
+	// tetapi disini, untuk posisi data harus sesuai dengan struct nya, 
+	// tidak boleh kebalik, misal int di nomor 2, maka harus int, gak boleh string
+
+	// atau ini
+	data2 := Customer{
+		nama: "Chandra",
+		alamat: "Pekanbaru", 
+		umur: 20,
+	}
+
+	fmt.Println(data2)
+
+
+	// penggunaan Struct Method
+		// cek function methon nya dibaris 103
+		// jadi dia memanggil menjalankan function yg mana data nya dari struct
+
+
+
+	data.sayHai() // Hallo nama saya Alex Chandra Hanif
+	data1.sayHai() // Hallo nama saya Alex
+	data2.sayHai()	// Hallo Nama saya Chandra
+
+
+	// dibawah ini contoh lain
+
+	// type Person struct {
+  //   Name    string
+  //   Age     int
+  //   Address string
+	// }		
+
+	// func (p *Person) sayHello() {
+	// 		fmt.Println("Hello, I'm", p.Name)
+	// }
+
+	// func main() {
+  //   person := Person{"John Doe", 30, "123 Main Street"}
+  //   fmt.Println(person.Name, person.Age, person.Address)
+
+  //   person.sayHello()
+	// }
+
+	
+
+
+	//! Interface
+		// Merupakan tipe data Abstrack, yang tidak memiliki implementasi langsung
+		// biasanya digunakan sebagai kontrak
+		// masih belum mengerti
+
+
+	//! Interface Kosong
+	// ada juga interface kosong (baris 114)
+	hasilInterfaceKosong := InterfaceKosong(3)
+	fmt.Println(hasilInterfaceKosong)
+
+	//! Interface Error ( baris 127)
+		// untuk return error seperti dijavascript
+
+	hasilErorInterface, eror := Pembagi(10, 0)
+
+	if(eror == nil){
+		fmt.Println(hasilErorInterface)
+	} else {
+		fmt.Println(eror)
+	}
+
+	//! Type Assertions
+		// mengubah function yg awal nya interface kosong (any), menjadi type suatu type data yg kira yakin return nya
+	// contoh 
+
+	// func contoh() interface{}{
+	// 	retun "OKE"
+	// }
+
+	// ketika di main
+	// hasilContoh := contoh()  => disini hasilnya adalah OKE
+	// typebaru := hasilContoh.(string) => disini menyimpan divariabel baru dan diubah type data interface menjadi string
+
+
+	// catatan 
+	// tapi ingat, untuk melakukan di atas, harus yakin bahwa return nya ada lah string atau yg lain
+	// ketika kita buat string, dan rupanya return nya adalah bool, atau int, maka akan timbul panic
+
+
+	// tapi ketika mau memaksakan, maka bisa membuat switch case
+
+	// switch value := typebaru.(type) {
+		// case string : 
+		// fmt.PrintLn("string", value)
+		// case int : 
+		// fmt.PrintLn("integer", value)
+		// case bool : 
+		// fmt.PrintLn("boolean", value)
+		// default : 
+		// fmt.PrintLn("Unknown", value)
+	//}
+
+	// dengan witch di atas, maka kita bisa set sesuai kemungkinan yg akan terjadi
+
+
+	//! Pointer
+		// intinya seperti di js, ketika data variabel A, dipindahkan di variabel B
+		// ketika data variabel B di ubah, maka data Varibel A tidak ikut ke ubah
+		
+	
+	
+
+	
+
+
+
+
+
 }
 
 
